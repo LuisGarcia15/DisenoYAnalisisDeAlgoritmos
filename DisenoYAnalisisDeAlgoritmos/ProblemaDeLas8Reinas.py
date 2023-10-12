@@ -1,16 +1,20 @@
 import numpy as np
 class Nodo:
-    def __init__(self, contenido, hijos):
-        self.__contenido = contenido
+    def __init__(self, cont, hijos):
+        self.__contenido = cont
         self.__hijos = hijos
 
     @property
-    def get_contenido(self):
+    def contenido(self):
         return self.__contenido
 
     @property
     def get_hijos(self):
         return self.__hijos
+
+    @contenido.setter
+    def contenido(self, cont):
+        self.__contenido = cont
 
 class Arbol:
     def __init__(self, contenido):
@@ -19,23 +23,6 @@ class Arbol:
     @property
     def get_raiz(self):
         return self.__raiz
-def reinas(tablero, num):
-    copia_tablero = copiar_tablero(tablero)
-    if num == len(tablero):
-        return tablero
-    else:
-        for fila in range(len(tablero)):
-            for columna in range(len(tablero)):
-                if colocar_reina(tablero, fila, columna):
-                    num = num + 1
-                    backtracking = reinas(tablero, num)
-                    if  backtracking == False:
-                        tablero = copia_tablero
-                        num = num - 1
-                        continue
-                    else:
-                        return backtracking
-        return False
 
 def colocar_reina(tablero, fila, columna):
     if verificar_columna(tablero, columna) and verificar_fila(tablero, fila) and verificar_diagonal(tablero, fila, columna):
@@ -110,11 +97,31 @@ def copiar_tablero(tablero):
         copia_tablero[copia] = tablero[copia].copy()
     return copia_tablero
 
+def reinas(nodo, num = 0):
+    copia_tablero = copiar_tablero(nodo.contenido)
+    if num == len(nodo.contenido):
+        return nodo.contenido
+    else:
+        for fila in range(len(nodo.contenido)):
+            for columna in range(len(nodo.contenido)):
+                nodo.get_hijos.append(Nodo(nodo.contenido, []))
+                if colocar_reina(nodo.get_hijos[len(nodo.get_hijos)-1].contenido, fila, columna):
+                    num = num + 1
+                    backtracking = reinas(nodo.get_hijos[len(nodo.get_hijos)-1], num)
+                    if  backtracking == False:
+                        nodo.contenido = copia_tablero
+                        num = num - 1
+                        continue
+                    else:
+                        return backtracking
+        return False
+
+def problema_reinas(longitud_tablero):
+    tablero = [[0] * longitud_tablero] * longitud_tablero
+    arbol = Arbol(tablero)
+    resultado = np.array(reinas(arbol.get_raiz))
+    return resultado
+
 def main():
-    num = 9
-    tablero = [
-        [0]*num
-    ]* num
-    l = np.array(reinas(tablero,0))
-    print(l)
+    print(problema_reinas(4))
 main()
