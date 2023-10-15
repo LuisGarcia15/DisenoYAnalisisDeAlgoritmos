@@ -1,26 +1,41 @@
 class Nodo:
 
     def __init__(self, valor):
-        self.valor = valor
-        self.num_vertice = -1
-        self.aristas = []
+        '''Clase Nodo que sera el vertice de
+        un grafo. Recibe como parámetro
+        el valor que almacena el grafo'''
+        self.__valor = valor
+        '''Tendra una variable num:vertice que sera
+        el número de vertice del nodo'''
+        self.__num_vertice = -1
+        '''Tendra una lista con las aristas asi donde
+        se conecta el nodo'''
+        self.__aristas = []
 
-    @property
     def get_valor(self):
-        return self.valor
+        '''get de la variable valor'''
+        return self.__valor
 
-    @property
+    def set_valor(self, valor):
+        '''set de la variable valor'''
+        self._valor = valor
+
     def get_aristas(self):
-        return self.aristas
+        '''get de la variable aristas'''
+        return self.__aristas
 
     def grado_nodo(self):
-        return len(self.aristas)
+        '''obtiene el grado del nodo'''
+        return len(self.__aristas)
 
     def es_igual(self, nodo):
-        return self.valor == nodo.get_valor()
+        '''verifica si un nodo es igual a otro'''
+        return self.__valor == nodo.get_valor()
 
     def asignar_vertice(self, num_vertice):
+        '''añade el numero de vertice al vertice'''
         self.num_vertice = num_vertice
 
     def __str__(self):
-        return f'Valor: {self.valor} - Número De Vertice: {self.num_vertice}'
+        '''to string del nodo: representación del nodo'''
+        return f'Valor: {self.__valor} - Número De Vertice: {self.num_vertice}'
