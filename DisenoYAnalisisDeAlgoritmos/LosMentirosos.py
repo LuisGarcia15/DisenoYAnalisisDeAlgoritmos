@@ -24,7 +24,7 @@ class Persona:
         self.__lista_opiniones = lista_opiniones
 
     def __str__(self):
-        return f'Num_persona: {self.__numero_persona} | Opiniones: {self.__lista_opiniones}'
+        return f'{self.__numero_persona}'
 
 
 def definicion_personas(numero_personas):
@@ -54,12 +54,13 @@ def definicion_personas(numero_personas):
     random.shuffle(lista_personas)
     return lista_personas, lista_aux
 
-def obtencion_honesto(lista_persona):
+def obtencion_honesto(lista):
+    lista_persona = lista.copy()
     lista_final = []
     if len(lista_persona) == 1:
         return lista_persona[0]
     if len(lista_persona) == 0:
-        return 'No se encontro un honesto'
+        return -1
     else:
         while(len(lista_persona) > 1):
             if lista_persona == 0:
@@ -77,15 +78,35 @@ def obtencion_honesto(lista_persona):
             lista_final.append(lista_persona.pop(0))
         return obtencion_honesto(lista_final)
 
+def obtencion_mentirosos_honestos(honesto, lista_persona):
+    mentirosos = set()
+    honestos = set()
+    for item in range(len(lista_persona)):
+        if (honesto.numero_persona-1) == item:
+            honestos.add(honesto)
+            continue
+        elif honesto.lista_opiniones[lista_persona[item].numero_persona -1]:
+            honestos.add(lista_persona[item])
+        else:
+            mentirosos.add(lista_persona[item])
+    return honestos, mentirosos
 def los_mentirosos(num_personas):
-  pass
+    lista, lista_aux = definicion_personas(num_personas)
+    honesto = obtencion_honesto(lista)
+    while honesto == -1:
+        random.shuffle(lista)
+        honesto = obtencion_honesto(lista)
+    return obtencion_mentirosos_honestos(honesto, lista)
 
 def main():
-    lista, lista_aux = definicion_personas(100)
-    print(lista_aux[0])
-    honesto = obtencion_honesto(lista)
-    print(f'#'*50)
-    print(honesto)
+    honestos, mentirosos = los_mentirosos(100)
+    personas_honestas = ''
+    personas_mentirosas = ''
+    for item in honestos:
+        personas_honestas += f'|{item.__str__() }|'
+    print(f'Honestos: \n{personas_honestas}')
 
-
+    for item in mentirosos:
+        personas_mentirosas += f'|{item.__str__()}|'
+    print(f'Mentirosos: \n{personas_mentirosas}')
 main()
