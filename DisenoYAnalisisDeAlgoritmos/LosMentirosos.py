@@ -81,7 +81,7 @@ def los_mentirosos(num_personas):
   pass
 
 def main():
-    lista, lista_aux = definicion_personas(10)
+    lista, lista_aux = definicion_personas(100)
     print(lista_aux[0])
     honesto = obtencion_honesto(lista)
     print(f'#'*50)
