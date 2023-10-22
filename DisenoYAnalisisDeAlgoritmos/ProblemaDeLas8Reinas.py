@@ -241,8 +241,10 @@ def problema_reinas(longitud_tablero):
     '''Llama al método reinas y retorna el resultado y se convierte en
     una matriz por numpy'''
     return resultado
-    '''Retorna el tablero con la solución'''
+'''Retorna el tablero con la solución'''
 
 def main():
+    '''El algoritmo funciona para un tablero 4x4, 5x5, 6x6
+    7x7 y 9x9. Sin embargo, no funciona para un tablero 8x8'''
     print(problema_reinas(9))
 main()
