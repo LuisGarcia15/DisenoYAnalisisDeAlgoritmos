@@ -3,9 +3,9 @@ int tablero[][];
 int filas,columnas,cuadro_ancho,cuadro_largo;
 
 void setup(){
-  //size(1200,800);
+  size(1200,800);
   /*Tamaño de la ventana*/
-  //background(255);
+  background(255);
   /*Color de fondo de la ventana*/
   filas=60;
   /*Indica cuantas celdas tendra el tablero*/
@@ -65,9 +65,10 @@ void pintaTablero(){
 }
 
 void suAlgoritmo(){
-  
+  loop();
 }
 
-
 void draw(){
+  pintaTablero();
+  suAlgoritmo();
 }
